@@ -1,0 +1,51 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="key" type="xs:string" minOccurs="0" />
+                <xs:element name="value" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table1>
+    <key>X</key>
+    <value>187</value>
+  </Table1>
+  <Table1>
+    <key>Y</key>
+    <value>187</value>
+  </Table1>
+  <Table1>
+    <key>Width</key>
+    <value>335</value>
+  </Table1>
+  <Table1>
+    <key>Height</key>
+    <value>30</value>
+  </Table1>
+  <Table1>
+    <key>InputFolder</key>
+    <value>C:\Users\80014379\Downloads</value>
+  </Table1>
+  <Table1>
+    <key>OutputFolder</key>
+    <value>C:\Users\80014379\Downloads\Output</value>
+  </Table1>
+  <Table1>
+    <key>Find</key>
+    <value>Provider Signature/Date/Time:</value>
+  </Table1>
+  <Table1>
+    <key>Offset</key>
+    <value>10</value>
+  </Table1>
+</NewDataSet>

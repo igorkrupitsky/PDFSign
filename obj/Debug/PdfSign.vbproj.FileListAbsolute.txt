@@ -1,0 +1,16 @@
+C:\Igor\PDFSign\bin\Debug\itextsharp.dll
+C:\Igor\PDFSign\bin\Debug\itextsharp.xml
+C:\Igor\PDFSign\obj\Debug\Interop.ADODB.dll
+C:\Igor\PDFSign\obj\Debug\PdfSign.vbproj.ResolveComReference.cache
+C:\Igor\PDFSign\obj\Debug\PdfSign.vbproj.GenerateResource.cache
+C:\Igor\PDFSign\obj\Debug\PdfSign.vbproj.CoreCompileInputs.cache
+C:\Igor\PDFSign\obj\Debug\PdfSign.vbproj.CopyComplete
+C:\Igor\PDFSign\bin\Debug\BouncyCastle.Crypto.dll
+C:\Igor\PDFSign\bin\Debug\PdfSign.exe
+C:\Igor\PDFSign\bin\Debug\PdfSign.pdb
+C:\Igor\PDFSign\bin\Debug\PdfSign.xml
+C:\Igor\PDFSign\obj\Debug\PdfSign.Form1.resources
+C:\Igor\PDFSign\obj\Debug\PdfSign.Resources.resources
+C:\Igor\PDFSign\obj\Debug\PdfSign.exe
+C:\Igor\PDFSign\obj\Debug\PdfSign.xml
+C:\Igor\PDFSign\obj\Debug\PdfSign.pdb
