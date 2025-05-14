@@ -7,11 +7,10 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim oAppRegistry As New AppSetting
-        txtOffset.Text = oAppRegistry.GetValueDef("Offset", "10")
-        txtX.Text = oAppRegistry.GetValueDef("X", "187")
-        txtY.Text = oAppRegistry.GetValueDef("Y", "187")
+        txtBottomMargin.Text = oAppRegistry.GetValueDef("BottomMargin", "10")
+        txtLeftMargin.Text = oAppRegistry.GetValueDef("LeftMargin", "18")
         txtWidth.Text = oAppRegistry.GetValueDef("Width", "335")
-        txtHeight.Text = oAppRegistry.GetValueDef("Height", "30")
+        txtHeight.Text = oAppRegistry.GetValueDef("Height", "28")
         txtInputFolder.Text = oAppRegistry.GetValueDef("InputFolder", "")
         txtOutputFolder.Text = oAppRegistry.GetValueDef("OutputFolder", "")
         txtFind.Text = oAppRegistry.GetValueDef("Find", "Provider Signature/Date/Time:")
@@ -19,9 +18,8 @@ Public Class Form1
 
     Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Dim oAppRegistry As New AppSetting
-        oAppRegistry.SetValue("Offset", txtOffset.Text)
-        oAppRegistry.SetValue("X", txtX.Text)
-        oAppRegistry.SetValue("Y", txtY.Text)
+        oAppRegistry.SetValue("BottomMargin", txtBottomMargin.Text)
+        oAppRegistry.SetValue("LeftMargin", txtLeftMargin.Text)
         oAppRegistry.SetValue("Width", txtWidth.Text)
         oAppRegistry.SetValue("Height", txtHeight.Text)
         oAppRegistry.SetValue("InputFolder", txtInputFolder.Text)
@@ -32,18 +30,13 @@ Public Class Form1
 
     Private Sub btnProcess_Click(sender As Object, e As EventArgs) Handles btnProcess.Click
 
-        If txtOffset.Text = "" Then
-            MsgBox("Offset not set")
+        If txtBottomMargin.Text = "" Then
+            MsgBox("Bottom Margin not set")
             Exit Sub
         End If
 
-        If txtX.Text = "" Then
-            MsgBox("X not set")
-            Exit Sub
-        End If
-
-        If txtY.Text = "" Then
-            MsgBox("Y not set")
+        If txtLeftMargin.Text = "" Then
+            MsgBox("Left Margin not set")
             Exit Sub
         End If
 
@@ -149,9 +142,8 @@ Public Class Form1
         Dim iNumberOfPages As Integer = oPdfReader.NumberOfPages
         Dim iPage As Integer = 0
 
-        Dim iOffset As Integer = txtOffset.Text '10
-        Dim iX As Integer = txtX.Text '500
-        Dim iY As Integer = txtY.Text '740
+        Dim iBottomMargin As Integer = txtBottomMargin.Text '10
+        Dim iLeftMargin As Integer = txtLeftMargin.Text '18
         Dim iWidth As Integer = txtWidth.Text '120
         Dim iHeight As Integer = txtHeight.Text '780
 
@@ -173,29 +165,53 @@ Public Class Form1
                 oDirectContent.AddTemplate(oPdfImportedPage, 1.0F, 0, 0, 1.0F, 0, 0)
             End If
 
-            Dim sPageText As String = parser.PdfTextExtractor.GetTextFromPage(oPdfReader, iPage, oStrategy)
-            sPageText = System.Text.Encoding.UTF8.GetString(System.Text.ASCIIEncoding.Convert(System.Text.Encoding.Default, System.Text.Encoding.UTF8, System.Text.Encoding.Default.GetBytes(sPageText)))
+            'Dim sPageText As String = parser.PdfTextExtractor.GetTextFromPage(oPdfReader, iPage, oStrategy)
+            'sPageText = System.Text.Encoding.UTF8.GetString(System.Text.ASCIIEncoding.Convert(System.Text.Encoding.Default, System.Text.Encoding.UTF8, System.Text.Encoding.Default.GetBytes(sPageText)))
+            'If txtFind.Text = "" OrElse sPageText.IndexOf(txtFind.Text) <> -1 Then
 
-            If txtFind.Text = "" OrElse sPageText.IndexOf(txtFind.Text) <> -1 Then
+            Dim oTextExtractor As New TextExtractor()
+            PdfTextExtractor.GetTextFromPage(oPdfReader, iPage, oTextExtractor) 'Initialize oTextExtractor
 
-                Dim iY2 As Integer = iY
-                Dim oTextExtractor As New TextExtractor()
-                PdfTextExtractor.GetTextFromPage(oPdfReader, iPage, oTextExtractor)
-                Dim oLines As Hashtable = oTextExtractor.GetLines()
 
-                For Each oEntry As DictionaryEntry In oLines
-                    Dim iBottom As Integer = oEntry.Key
-                    Dim sLine As String = oEntry.Value
-                    If sLine.IndexOf(txtFind.Text) <> -1 Then
-                        iY2 = iBottom - iOffset 'Move down
-                    End If
-                Next
 
-                Dim field As PdfFormField = PdfFormField.CreateSignature(oPdfWriter)
-                field.SetWidget(New Rectangle(iX, iY2, iX + iWidth, iY2 + iHeight), PdfAnnotation.HIGHLIGHT_OUTLINE)
-                field.FieldName = "myEmptySignatureField" & iPage
-                oPdfWriter.AddAnnotation(field)
-            End If
+            Dim oFind As String() = System.Text.RegularExpressions.Regex.Split(txtFind.Text, vbCrLf)
+            For Each sFind In oFind
+
+                Dim oRect As iTextSharp.text.Rectangle = oTextExtractor.Find(sFind)
+
+                If oRect Is Nothing Then
+                    ' Try to find text manually
+                    Dim oLines As New Hashtable
+                    For i = 0 To oTextExtractor.oPoints.Count - 1
+                        Dim r As RectAndText = oTextExtractor.oPoints(i)
+
+                        If oLines.ContainsKey(r.Rect.Top) Then
+                            oLines(r.Rect.Top) += " " & r.Text
+                        Else
+                            oLines(r.Rect.Top) = r.Text
+                        End If
+
+                        Dim sLine As String = oLines(r.Rect.Top) & ""
+                        If sLine.IndexOf(sFind) <> -1 Then
+                            oRect = r.Rect
+                            Exit For
+                        End If
+                    Next
+                End If
+
+                If oRect IsNot Nothing Then
+                    Dim iX As Integer = oRect.Left + oRect.Width + iLeftMargin 'Move right
+                    Dim iY As Integer = oRect.Bottom - iBottomMargin 'Move down
+
+                    Dim field As PdfFormField = PdfFormField.CreateSignature(oPdfWriter)
+                    field.SetWidget(New Rectangle(iX, iY, iX + iWidth, iY + iHeight), PdfAnnotation.HIGHLIGHT_OUTLINE)
+                    field.FieldName = "myEmptySignatureField" & iPage
+                    oPdfWriter.AddAnnotation(field)
+                End If
+            Next
+
+
+
 
         Loop
 
@@ -216,10 +232,6 @@ Public Class Form1
     Private Sub btnOutputFolder_Click(sender As Object, e As EventArgs) Handles btnOutputFolder.Click
         FolderBrowserDialog1.ShowDialog()
         txtOutputFolder.Text = FolderBrowserDialog1.SelectedPath
-    End Sub
-
-    Private Sub lblBottom_Click(sender As Object, e As EventArgs) Handles lblBottom.MouseHover
-        ToolTip1.SetToolTip(lblBottom, "Optional.  This option will be used when the position off search text cannot be found on the PDF page.")
     End Sub
 
     Private Sub lblOffset_MouseHover(sender As Object, e As EventArgs) Handles lblOffset.MouseHover
@@ -243,22 +255,39 @@ Class TextExtractor
         oPoints.Add(New RectAndText(rect, renderInfo.GetText()))
     End Sub
 
-    Public Function GetLines() As Hashtable
-        Dim oLines As New Hashtable
+    Private Function GetLines() As Dictionary(Of Single, ArrayList)
+        Dim oLines As New Dictionary(Of Single, ArrayList)
         For Each p As RectAndText In oPoints
-            Dim sText = p.Text
-            Dim iLeft = p.Rect.Left
             Dim iBottom = p.Rect.Bottom
 
             If oLines.ContainsKey(iBottom) = False Then
-                oLines(iBottom) = ""
+                oLines(iBottom) = New ArrayList()
             End If
 
-            oLines(iBottom) += sText
+            oLines(iBottom).Add(p)
         Next
 
         Return oLines
     End Function
+
+    Public Function Find(ByVal sFind As String) As iTextSharp.text.Rectangle
+        Dim oLines As Dictionary(Of Single, ArrayList) = GetLines()
+
+        For Each oEntry As KeyValuePair(Of Single, ArrayList) In oLines
+            'Dim iBottom As Integer = oEntry.Key
+            Dim oRectAndTexts As ArrayList = oEntry.Value
+            Dim sLine As String = ""
+            For Each p As RectAndText In oRectAndTexts
+                sLine += p.Text
+                If sLine.IndexOf(sFind) <> -1 Then
+                    Return p.Rect
+                End If
+            Next
+        Next
+
+        Return Nothing
+    End Function
+
 End Class
 
 Public Class RectAndText

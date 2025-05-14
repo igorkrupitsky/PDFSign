@@ -25,10 +25,8 @@ Partial Class Form1
         Me.components = New System.ComponentModel.Container()
         Me.btnProcess = New System.Windows.Forms.Button()
         Me.txtOutput = New System.Windows.Forms.TextBox()
-        Me.txtX = New System.Windows.Forms.TextBox()
-        Me.txtY = New System.Windows.Forms.TextBox()
+        Me.txtLeftMargin = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.lblBottom = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtHeight = New System.Windows.Forms.TextBox()
@@ -44,13 +42,13 @@ Partial Class Form1
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtFind = New System.Windows.Forms.TextBox()
         Me.lblOffset = New System.Windows.Forms.Label()
-        Me.txtOffset = New System.Windows.Forms.TextBox()
+        Me.txtBottomMargin = New System.Windows.Forms.TextBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuspendLayout()
         '
         'btnProcess
         '
-        Me.btnProcess.Location = New System.Drawing.Point(132, 186)
+        Me.btnProcess.Location = New System.Drawing.Point(132, 365)
         Me.btnProcess.Name = "btnProcess"
         Me.btnProcess.Size = New System.Drawing.Size(177, 43)
         Me.btnProcess.TabIndex = 0
@@ -62,43 +60,27 @@ Partial Class Form1
         Me.txtOutput.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtOutput.Location = New System.Drawing.Point(12, 235)
+        Me.txtOutput.Location = New System.Drawing.Point(12, 414)
         Me.txtOutput.Multiline = True
         Me.txtOutput.Name = "txtOutput"
-        Me.txtOutput.Size = New System.Drawing.Size(797, 316)
+        Me.txtOutput.Size = New System.Drawing.Size(797, 194)
         Me.txtOutput.TabIndex = 1
         '
-        'txtX
+        'txtLeftMargin
         '
-        Me.txtX.Location = New System.Drawing.Point(132, 79)
-        Me.txtX.Name = "txtX"
-        Me.txtX.Size = New System.Drawing.Size(100, 26)
-        Me.txtX.TabIndex = 2
-        '
-        'txtY
-        '
-        Me.txtY.Location = New System.Drawing.Point(132, 111)
-        Me.txtY.Name = "txtY"
-        Me.txtY.Size = New System.Drawing.Size(100, 26)
-        Me.txtY.TabIndex = 3
+        Me.txtLeftMargin.Location = New System.Drawing.Point(132, 79)
+        Me.txtLeftMargin.Name = "txtLeftMargin"
+        Me.txtLeftMargin.Size = New System.Drawing.Size(100, 26)
+        Me.txtLeftMargin.TabIndex = 2
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(82, 85)
+        Me.Label1.Location = New System.Drawing.Point(37, 85)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(37, 20)
+        Me.Label1.Size = New System.Drawing.Size(89, 20)
         Me.Label1.TabIndex = 4
-        Me.Label1.Text = "Left"
-        '
-        'lblBottom
-        '
-        Me.lblBottom.AutoSize = True
-        Me.lblBottom.Location = New System.Drawing.Point(52, 111)
-        Me.lblBottom.Name = "lblBottom"
-        Me.lblBottom.Size = New System.Drawing.Size(67, 20)
-        Me.lblBottom.TabIndex = 5
-        Me.lblBottom.Text = "Bottom*"
+        Me.Label1.Text = "Left Margin"
         '
         'Label3
         '
@@ -198,7 +180,7 @@ Partial Class Form1
         '
         Me.ProgressBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar1.Location = New System.Drawing.Point(12, 557)
+        Me.ProgressBar1.Location = New System.Drawing.Point(12, 614)
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(797, 14)
         Me.ProgressBar1.TabIndex = 16
@@ -206,7 +188,7 @@ Partial Class Form1
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(406, 148)
+        Me.Label7.Location = New System.Drawing.Point(79, 151)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(40, 20)
         Me.Label7.TabIndex = 17
@@ -216,34 +198,35 @@ Partial Class Form1
         '
         Me.txtFind.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtFind.Location = New System.Drawing.Point(463, 148)
+        Me.txtFind.Location = New System.Drawing.Point(132, 148)
+        Me.txtFind.Multiline = True
         Me.txtFind.Name = "txtFind"
-        Me.txtFind.Size = New System.Drawing.Size(309, 26)
+        Me.txtFind.Size = New System.Drawing.Size(640, 211)
         Me.txtFind.TabIndex = 18
         '
         'lblOffset
         '
         Me.lblOffset.AutoSize = True
-        Me.lblOffset.Location = New System.Drawing.Point(60, 146)
+        Me.lblOffset.Location = New System.Drawing.Point(13, 114)
         Me.lblOffset.Name = "lblOffset"
-        Me.lblOffset.Size = New System.Drawing.Size(59, 20)
+        Me.lblOffset.Size = New System.Drawing.Size(113, 20)
         Me.lblOffset.TabIndex = 20
-        Me.lblOffset.Text = "Offset*"
+        Me.lblOffset.Text = "Bottom Margin"
         '
-        'txtOffset
+        'txtBottomMargin
         '
-        Me.txtOffset.Location = New System.Drawing.Point(132, 143)
-        Me.txtOffset.Name = "txtOffset"
-        Me.txtOffset.Size = New System.Drawing.Size(100, 26)
-        Me.txtOffset.TabIndex = 19
+        Me.txtBottomMargin.Location = New System.Drawing.Point(132, 111)
+        Me.txtBottomMargin.Name = "txtBottomMargin"
+        Me.txtBottomMargin.Size = New System.Drawing.Size(100, 26)
+        Me.txtBottomMargin.TabIndex = 19
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(821, 582)
+        Me.ClientSize = New System.Drawing.Size(821, 639)
         Me.Controls.Add(Me.lblOffset)
-        Me.Controls.Add(Me.txtOffset)
+        Me.Controls.Add(Me.txtBottomMargin)
         Me.Controls.Add(Me.txtFind)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.ProgressBar1)
@@ -257,10 +240,8 @@ Partial Class Form1
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.txtHeight)
         Me.Controls.Add(Me.txtWidth)
-        Me.Controls.Add(Me.lblBottom)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.txtY)
-        Me.Controls.Add(Me.txtX)
+        Me.Controls.Add(Me.txtLeftMargin)
         Me.Controls.Add(Me.txtOutput)
         Me.Controls.Add(Me.btnProcess)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -273,10 +254,8 @@ Partial Class Form1
 
     Friend WithEvents btnProcess As Button
     Friend WithEvents txtOutput As TextBox
-    Friend WithEvents txtX As TextBox
-    Friend WithEvents txtY As TextBox
+    Friend WithEvents txtLeftMargin As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents lblBottom As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents txtHeight As TextBox
@@ -292,6 +271,6 @@ Partial Class Form1
     Friend WithEvents Label7 As Label
     Friend WithEvents txtFind As TextBox
     Friend WithEvents lblOffset As Label
-    Friend WithEvents txtOffset As TextBox
+    Friend WithEvents txtBottomMargin As TextBox
     Friend WithEvents ToolTip1 As ToolTip
 End Class

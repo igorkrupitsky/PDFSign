@@ -14,3 +14,4 @@ C:\Igor\PDFSign\obj\Debug\PdfSign.Resources.resources
 C:\Igor\PDFSign\obj\Debug\PdfSign.exe
 C:\Igor\PDFSign\obj\Debug\PdfSign.xml
 C:\Igor\PDFSign\obj\Debug\PdfSign.pdb
+C:\Igor\PDFSign\obj\Debug\PdfSign.vbproj.AssemblyReference.cache

@@ -30,22 +30,31 @@
   </Table1>
   <Table1>
     <key>Width</key>
-    <value>335</value>
+    <value>100</value>
   </Table1>
   <Table1>
     <key>Height</key>
-    <value>30</value>
+    <value>20</value>
   </Table1>
   <Table1>
     <key>InputFolder</key>
-    <value>C:\Users\80014379\Downloads</value>
+    <value>C:\Igor\Rent\in</value>
   </Table1>
   <Table1>
     <key>OutputFolder</key>
-    <value>C:\Users\80014379\Downloads\Output</value>
+    <value>C:\Igor\Rent\out</value>
   </Table1>
   <Table1>
     <key>Find</key>
-    <value>Provider Signature/Date/Time:</value>
+    <value>Landlord’s Signature
+Tenant’s Signature</value>
+  </Table1>
+  <Table1>
+    <key>BottomMargin</key>
+    <value>0</value>
+  </Table1>
+  <Table1>
+    <key>LeftMargin</key>
+    <value>2</value>
   </Table1>
 </NewDataSet>
